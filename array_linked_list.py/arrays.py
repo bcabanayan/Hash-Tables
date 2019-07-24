@@ -3,54 +3,71 @@
 # Do not use any of the built in array functions for this exercise
 class array:
     def __init__(self, capacity):
-        # Your code here
         self.capacity = capacity
         # cheating a little bit here by using a python list; however, won't use any built in array functions
         self.elements = [None] * capacity
-        pass
+        self.count = 0
+        
+        
 
 
-# Double the size of the given array
-def resize_array():
+# Double the size of the given array (which is what most languages will end up doing)
+def resize_array(array):
     # Your code here
-    pass
+    new_capacity = array.capacity * 2
+    new_elements = [None] * new_capacity
+    # for every item in previous array, set value in new_elements equal to item in previous array
+    for i in range(array.capacity):
+        new_elements[i] = array.elements[i]
+    # set array equal to new elements and new capacity
+    array.elements = new_elements
+    array.capacity = new_capacity
 
 
 # Return an element of a given array at a given index
-def array_read():
+def array_read(array, index):
     # Throw an error if array is out of the current count
     # Your code here
-    pass
+    if index >= array.count:
+        print("Error! Index " + str(index) +" out of range")
+        return None
+    # again, cheating here because we're using a list as the structure to store
+    # last time that we'll cheat!
+    return array.elements[index]
+    
 
 
 # Insert an element in a given array at a given index
-def array_insert():
+# need index of where you're inserting
+def array_insert(array, value, index):
     # Throw an error if array is out of the current count
-
+    if index >= array.count:
+        print("Error! Index " + str(index) +" out of range")
+        return None
     # Resize the array if the number of elements is over capacity
-
+    if array.capacity <= array.count:
+        resize_array(array)
     # Move the elements to create a space at 'index'
     # Think about where to start!
-
+    for i in range(array.count, index, -1):
+        array.elements[i] = array.elements[i - 1]
     # Add the new element to the array and update the count
-    pass
+    # count always points to NEXT element in the array (that's why it's initialized at zero to begin with)
+    array.elements[index] = value
+    array.count += 1
 
 
 # Add an element to the end of the given array
-def array_append():
-
+def array_append(array, value):
     # Hint, this can be done with one line of code
     # (Without using a built in function)
-
-    # Your code here
-    pass
-
+    array_insert(array, value, array.count)
+    
 
 # Remove the first occurence of the given element from the array
 # Throw an error if the value is not found
-def array_remove():
-    # Your code here
-    pass
+def array_remove(array, element):
+        
 
 
 # Remove the element in a given position and return it

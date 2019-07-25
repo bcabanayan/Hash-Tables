@@ -37,6 +37,8 @@ def hash_table_insert(hash_table, key, value):
     hash_key = hash(key, hash_table.capacity)
     if hash_table.storage[hash_key]:
         print('Warning! Overwriting existing value')
+    # to implement Pair class...
+    # hash_table.storage[hash_key] = Pair(hash_key, value)
     hash_table.storage[hash_key] = value
 
 # '''

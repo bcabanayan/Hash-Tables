@@ -40,7 +40,8 @@ def hash(string, max):
 # If you are overwriting a value with a different key, print a warning.
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    hash_key = hash(key, hash_table.capacity)
+    hash_table.elements[hash_key] = value
 
 
 # '''

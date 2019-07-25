@@ -41,7 +41,10 @@ def hash(string, max):
 # '''
 def hash_table_insert(hash_table, key, value):
     hash_key = hash(key, hash_table.capacity)
+    if hash_table.elements[hash_key]:
+        print('Warning! Overwriting existing value')
     hash_table.elements[hash_key] = value
+    print(hash_table.elements)
 
 
 # '''
@@ -50,7 +53,12 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    pass
+    hash_key = hash(key, hash_table.capacity)
+    if hash_table.elements[hash_key] == None:
+        print('Nothing here')
+        return
+    hash_table.elements[hash_key] = None
+    print(hash_table.elements)
 
 
 # '''

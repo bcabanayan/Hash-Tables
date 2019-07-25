@@ -1,5 +1,3 @@
-
-
 # '''
 # Basic hash table key/value pair
 # '''
@@ -18,10 +16,6 @@ class BasicHashTable:
         self.capacity = capacity
         # cheating a little bit here by using a python list; however, won't use any built in array functions
         self.storage = [None] * capacity
-        self.count = 0
-
-print(bin(17 << 2))
-
 
 # '''
 # Fill this in.
@@ -44,8 +38,6 @@ def hash_table_insert(hash_table, key, value):
     if hash_table.storage[hash_key]:
         print('Warning! Overwriting existing value')
     hash_table.storage[hash_key] = value
-    print(hash_table.storage)
-
 
 # '''
 # Fill this in.
@@ -58,7 +50,6 @@ def hash_table_remove(hash_table, key):
         print('Nothing here')
         return
     hash_table.storage[hash_key] = None
-    print(hash_table.storage)
 
 
 # '''
@@ -70,6 +61,8 @@ def hash_table_retrieve(hash_table, key):
     hash_key = hash(key, hash_table.capacity)
     if hash_table.storage[hash_key] == None:
         return None
+    else:
+        return hash_table.storage[hash_key]
 
 
 

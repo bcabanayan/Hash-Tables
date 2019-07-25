@@ -15,8 +15,11 @@ class Pair:
 # '''
 class BasicHashTable:
     def __init__(self, capacity):
-        pass
-
+        self.capacity = capacity
+        # cheating a little bit here by using a python list; however, won't use any built in array functions
+        self.elements = [None] * capacity
+        self.count = 0
+        
 
 # '''
 # Fill this in.

@@ -19,14 +19,19 @@ class BasicHashTable:
         # cheating a little bit here by using a python list; however, won't use any built in array functions
         self.elements = [None] * capacity
         self.count = 0
-        
+
+print(bin(17 << 2))
+
 
 # '''
 # Fill this in.
 # Research and implement the djb2 hash function
 # '''
 def hash(string, max):
-    pass
+    hash = 5381
+    for char in string:
+        hash = ((hash << 5) + hash) + ord(char)
+    return hash % max
 
 
 # '''

@@ -21,6 +21,10 @@ class BasicHashTable:
 # Fill this in.
 # Research and implement the djb2 hash function
 # '''
+
+# Want to be able to take an unlimited amount of values and distill it to a unique number that fits within a range we describe...
+# Do a modulus on that number, take the remainder, and then figure out where in the array we should put the element
+
 def hash(string, max):
     hash = 5381
     for char in string:

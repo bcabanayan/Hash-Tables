@@ -36,7 +36,19 @@ def hash(string, max):
 # Hint: Used the LL to handle collisions
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    hash_key = hash(key, hash_table.capacity)
+
+    current_pair = hash_table.storage[hash_key]
+
+    while current_pair is not None and current_pair.key != key:
+        current_pair = current_pair.next
+
+    if current_pair is None:
+        new_pair = LinkedPair(key, value)
+        new_pair.next = hash_table.storage[hash_key]
+        hash_table.storage[hash_key] = new_pair
+    else:
+        current_pair.value = value
 
 
 # '''

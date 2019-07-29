@@ -67,10 +67,7 @@ def hash_table_remove(hash_table, key):
         new_head = current_pair.next
         hash_table.storage[hash_key] = new_head
     else:
-        print('Nothing there!')
-
-
-
+        print('Warning: Nothing there!')
 
 
 # '''
@@ -79,8 +76,27 @@ def hash_table_remove(hash_table, key):
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    hash_key = hash(key, hash_table.capacity)
 
+    found = False
+    
+    current_pair = hash_table.storage[hash_key]
+
+    if current_pair == None:
+        return None
+    else:
+        while current_pair:
+            if current_pair.key == key:
+                found = True
+                break
+            else:
+                current_pair = current_pair.next
+    if found:
+        # for testing...
+        # return print('key ' + str(current_pair.key) + ' value ' + str(current_pair.value))
+        return current_pair
+    else:
+        return None
 
 # '''
 # Fill this in
@@ -100,12 +116,12 @@ def Testing():
     print(hash_table_retrieve(ht, "line_2"))
     print(hash_table_retrieve(ht, "line_3"))
 
-    old_capacity = len(ht.storage)
-    ht = hash_table_resize(ht)
-    new_capacity = len(ht.storage)
+    # old_capacity = len(ht.storage)
+    # ht = hash_table_resize(ht)
+    # new_capacity = len(ht.storage)
 
-    print("Resized hash table from " + str(old_capacity)
-          + " to " + str(new_capacity) + ".")
+    # print("Resized hash table from " + str(old_capacity)
+    #       + " to " + str(new_capacity) + ".")
 
 
 Testing()

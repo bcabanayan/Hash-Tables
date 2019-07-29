@@ -94,7 +94,7 @@ def hash_table_retrieve(hash_table, key):
     if found:
         # for testing...
         # return print('key ' + str(current_pair.key) + ' value ' + str(current_pair.value))
-        return current_pair
+        return current_pair.value
     else:
         return None
 
@@ -102,8 +102,16 @@ def hash_table_retrieve(hash_table, key):
 # Fill this in
 # '''
 def hash_table_resize(hash_table):
-    pass
-
+    new_capacity = hash_table.capacity * 2 
+    new_table = HashTable(new_capacity)
+    for pair in hash_table.storage:
+        hash_table_insert(new_table, pair.key, pair.value)
+        if pair.next:
+            current_pair = pair.next
+            while current_pair:
+                hash_table_insert(new_table, current_pair.key, current_pair.value)
+                current_pair = current_pair.next
+    return new_table
 
 def Testing():
     ht = HashTable(2)
@@ -116,12 +124,12 @@ def Testing():
     print(hash_table_retrieve(ht, "line_2"))
     print(hash_table_retrieve(ht, "line_3"))
 
-    # old_capacity = len(ht.storage)
-    # ht = hash_table_resize(ht)
-    # new_capacity = len(ht.storage)
+    old_capacity = len(ht.storage)
+    ht = hash_table_resize(ht)
+    new_capacity = len(ht.storage)
 
-    # print("Resized hash table from " + str(old_capacity)
-    #       + " to " + str(new_capacity) + ".")
+    print("Resized hash table from " + str(old_capacity)
+          + " to " + str(new_capacity) + ".")
 
 
 Testing()

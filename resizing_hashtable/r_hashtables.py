@@ -17,14 +17,19 @@ class LinkedPair:
 # '''
 class HashTable:
     def __init__(self, capacity):
-        pass
+        self.capacity = capacity
+        # cheating a little bit here by using a python list; however, won't use any built in array functions
+        self.storage = [None] * capacity
 
 
 # '''
 # Research and implement the djb2 hash function
 # '''
 def hash(string, max):
-    pass
+    hash = 5381
+    for char in string:
+        hash = ((hash << 5) + hash) + ord(char)
+    return hash % max
 
 
 # '''
@@ -33,7 +38,19 @@ def hash(string, max):
 # Hint: Used the LL to handle collisions
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    hash_key = hash(key, hash_table.capacity)
+
+    current_pair = hash_table.storage[hash_key]
+
+    while current_pair is not None and current_pair.key != key:
+        current_pair = current_pair.next
+
+    if current_pair is None:
+        new_pair = LinkedPair(key, value)
+        new_pair.next = hash_table.storage[hash_key]
+        hash_table.storage[hash_key] = new_pair
+    else:
+        current_pair.value = value
 
 
 # '''
@@ -42,7 +59,15 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    pass
+    hash_key = hash(key, hash_table.capacity)
+
+    current_pair = hash_table.storage[hash_key]
+
+    if current_pair is not None:
+        new_head = current_pair.next
+        hash_table.storage[hash_key] = new_head
+    else:
+        print('Warning: Nothing there!')
 
 
 # '''
@@ -51,15 +76,42 @@ def hash_table_remove(hash_table, key):
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    hash_key = hash(key, hash_table.capacity)
 
+    found = False
+    
+    current_pair = hash_table.storage[hash_key]
+
+    if current_pair == None:
+        return None
+    else:
+        while current_pair:
+            if current_pair.key == key:
+                found = True
+                break
+            else:
+                current_pair = current_pair.next
+    if found:
+        # for testing...
+        # return print('key ' + str(current_pair.key) + ' value ' + str(current_pair.value))
+        return current_pair.value
+    else:
+        return None
 
 # '''
 # Fill this in
 # '''
 def hash_table_resize(hash_table):
-    pass
-
+    new_capacity = hash_table.capacity * 2 
+    new_table = HashTable(new_capacity)
+    for pair in hash_table.storage:
+        hash_table_insert(new_table, pair.key, pair.value)
+        if pair.next:
+            current_pair = pair.next
+            while current_pair:
+                hash_table_insert(new_table, current_pair.key, current_pair.value)
+                current_pair = current_pair.next
+    return new_table
 
 def Testing():
     ht = HashTable(2)
